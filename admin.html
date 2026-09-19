@@ -1,844 +1,1262 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - TechBlog</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <title>TechBlog | Noticias de Tecnología</title>
+
+    <!-- Bootstrap -->
+    <link
+        rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    >
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <!-- =====================================================
+         ESTILOS CSS
+    ====================================================== -->
     <style>
+
+        /* =========================
+           VARIABLES
+        ========================== */
+
+        :root {
+            --bg: #070a13;
+            --panel: #101522;
+            --panel2: #151b2c;
+            --text: #eef2ff;
+            --muted: #9ba6bd;
+            --a: #7c5cff;
+            --b: #00d4ff;
+            --line: rgba(255, 255, 255, 0.09);
+        }
+
+
+        /* =========================
+           CONFIGURACIÓN GENERAL
+        ========================== */
+
         * {
-            margin: 0;
-            padding: 0;
             box-sizing: border-box;
         }
 
-        :root {
-            --primary: #667eea;
-            --secondary: #764ba2;
-            --dark: #1a1a2e;
-            --light: #f8f9ff;
-            --text-dark: #2d3436;
-            --text-light: #636e72;
-            --success: #00b894;
-            --danger: #d63031;
-            --warning: #fdcb6e;
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--light);
-            color: var(--text-dark);
+            margin: 0;
+            font-family: Inter, Segoe UI, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
         }
 
-        /* ====== SIDEBAR ====== */
-        .sidebar {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            min-height: 100vh;
-            padding: 30px 0;
-            position: fixed;
-            width: 280px;
-            left: 0;
+
+        /* =========================
+           NAVBAR
+        ========================== */
+
+        .navbar {
+            background: rgba(7, 10, 19, 0.82) !important;
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid var(--line);
+            padding: 14px 0;
+
+            position: sticky;
             top: 0;
-            box-shadow: 5px 0 20px rgba(0,0,0,0.1);
+            z-index: 1000;
         }
 
-        .sidebar-brand {
-            color: white;
-            font-size: 1.5rem;
-            font-weight: 800;
-            padding: 0 20px 30px;
-            border-bottom: 1px solid rgba(255,255,255,0.2);
+        .navbar-brand {
+            font-weight: 900;
+            font-size: 1.45rem;
+            letter-spacing: -0.5px;
+        }
+
+        .navbar-brand i {
+            color: var(--b);
+        }
+
+        .nav-link {
+            color: #cdd5e7 !important;
+            font-weight: 600;
+            margin-left: 15px;
+        }
+
+        .nav-link:hover {
+            color: white !important;
+        }
+
+
+        /* =========================
+           HERO
+        ========================== */
+
+        .hero {
+            min-height: 78vh;
+
             display: flex;
             align-items: center;
-            gap: 10px;
+
+            position: relative;
+            overflow: hidden;
+
+            background:
+                radial-gradient(
+                    circle at 15% 20%,
+                    rgba(124, 92, 255, 0.3),
+                    transparent 35%
+                ),
+                radial-gradient(
+                    circle at 85% 30%,
+                    rgba(0, 212, 255, 0.2),
+                    transparent 30%
+                ),
+                linear-gradient(
+                    145deg,
+                    #080b15,
+                    #11182a
+                );
         }
 
-        .sidebar-menu {
-            list-style: none;
+        .hero::before {
+            content: "";
+
+            position: absolute;
+
+            width: 500px;
+            height: 500px;
+
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+
+            right: -170px;
+            top: -160px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+
+            max-width: 850px;
+        }
+
+
+        /* =========================
+           ETIQUETA SUPERIOR
+        ========================== */
+
+        .eyebrow {
+            display: inline-flex;
+
+            gap: 8px;
+            align-items: center;
+
+            color: #cfd7ff;
+
+            background: rgba(124, 92, 255, 0.13);
+            border: 1px solid rgba(124, 92, 255, 0.35);
+
+            padding: 8px 13px;
+
+            border-radius: 99px;
+
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+
+        /* =========================
+           TÍTULO PRINCIPAL
+        ========================== */
+
+        .hero h1 {
+            font-size: clamp(3rem, 7vw, 6.5rem);
+
+            font-weight: 950;
+
+            line-height: 0.95;
+
+            letter-spacing: -4px;
+
+            margin: 22px 0;
+        }
+
+        .gradient {
+            background: linear-gradient(
+                90deg,
+                #fff,
+                #a99bff 45%,
+                #63e7ff
+            );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+
+            color: #b8c2d8;
+
+            max-width: 680px;
+
+            line-height: 1.7;
+        }
+
+
+        /* =========================
+           BOTONES DEL HERO
+        ========================== */
+
+        .hero-actions {
+            display: flex;
+
+            gap: 12px;
+
+            flex-wrap: wrap;
+
             margin-top: 30px;
         }
 
-        .sidebar-menu li {
+        .btn-tech {
+            border: 0;
+
+            border-radius: 12px;
+
+            padding: 13px 20px;
+
+            font-weight: 800;
+
+            background: linear-gradient(
+                90deg,
+                var(--a),
+                var(--b)
+            );
+
+            color: white;
+
+            box-shadow:
+                0 12px 35px rgba(0, 212, 255, 0.14);
+        }
+
+        .btn-ghost {
+            border: 1px solid var(--line);
+
+            border-radius: 12px;
+
+            padding: 12px 20px;
+
+            font-weight: 800;
+
+            background: rgba(255, 255, 255, 0.04);
+
+            color: white;
+        }
+
+
+        /* =========================
+           SECCIONES
+        ========================== */
+
+        .section {
+            padding: 90px 0;
+        }
+
+        .section-head {
+            display: flex;
+
+            justify-content: space-between;
+            align-items: end;
+
+            gap: 20px;
+
+            margin-bottom: 34px;
+        }
+
+        .section-head h2 {
+            font-weight: 900;
+            font-size: 2.4rem;
+
             margin: 0;
         }
 
-        .sidebar-menu a {
+        .section-head p {
+            color: var(--muted);
+
+            margin: 8px 0 0;
+        }
+
+
+        /* =========================
+           TARJETAS DE NOTICIAS
+        ========================== */
+
+        .news-card {
+            height: 100%;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255, 255, 255, 0.055),
+                    rgba(255, 255, 255, 0.025)
+                );
+
+            border: 1px solid var(--line);
+
+            border-radius: 20px;
+
+            overflow: hidden;
+
+            transition: 0.3s;
+
+            box-shadow:
+                0 15px 45px rgba(0, 0, 0, 0.18);
+        }
+
+        .news-card:hover {
+            transform: translateY(-7px);
+
+            border-color:
+                rgba(124, 92, 255, 0.55);
+
+            box-shadow:
+                0 22px 60px rgba(0, 0, 0, 0.3);
+        }
+
+
+        /* =========================
+           PORTADA DE NOTICIA
+        ========================== */
+
+        .news-cover {
+            height: 185px;
+
             display: flex;
+
             align-items: center;
-            gap: 15px;
-            color: rgba(255,255,255,0.8);
-            padding: 15px 20px;
-            transition: all 0.3s ease;
-            border-left: 3px solid transparent;
+            justify-content: center;
+
+            font-size: 4rem;
+
+            background:
+                radial-gradient(
+                    circle at 50% 30%,
+                    rgba(255, 255, 255, 0.18),
+                    transparent 40%
+                ),
+                linear-gradient(
+                    135deg,
+                    #171d39,
+                    #172b3e
+                );
+        }
+
+
+        /* =========================
+           CUERPO DE NOTICIA
+        ========================== */
+
+        .news-body {
+            padding: 23px;
+        }
+
+        .tag {
+            display: inline-block;
+
+            font-size: 0.72rem;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1px;
+
+            font-weight: 900;
+
+            padding: 6px 10px;
+
+            border-radius: 99px;
+
+            color: #dce8ff;
+
+            background: rgba(124, 92, 255, 0.17);
+
+            border: 1px solid
+                rgba(124, 92, 255, 0.3);
+        }
+
+        .news-body h3 {
+            font-size: 1.25rem;
+
+            line-height: 1.35;
+
+            font-weight: 850;
+
+            margin: 14px 0 10px;
+        }
+
+        .meta {
+            color: #7f8ba3;
+
+            font-size: 0.83rem;
+
+            display: flex;
+
+            gap: 10px;
+
+            margin-bottom: 14px;
+        }
+
+        .news-body p {
+            color: #aeb8cb;
+
+            line-height: 1.65;
+        }
+
+        .read {
+            color: #7edfff;
+
+            font-weight: 800;
+
             text-decoration: none;
         }
 
-        .sidebar-menu a:hover {
+        .read:hover {
             color: white;
-            background: rgba(0,0,0,0.1);
-            border-left-color: white;
+
+            text-decoration: none;
         }
 
-        .sidebar-menu a.active {
-            color: white;
-            background: rgba(0,0,0,0.2);
-            border-left-color: white;
-            font-weight: 600;
-        }
 
-        .sidebar-menu i {
-            font-size: 1.2rem;
-            width: 25px;
-        }
+        /* =========================
+           BARRA NEWS DESK
+        ========================== */
 
-        /* ====== MAIN CONTENT ====== */
-        .main-content {
-            margin-left: 280px;
-            padding: 30px;
-            min-height: 100vh;
-        }
+        .live {
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(124, 92, 255, 0.13),
+                    rgba(0, 212, 255, 0.08)
+                );
 
-        .header-bar {
+            border: 1px solid var(--line);
+
+            border-radius: 18px;
+
+            padding: 18px 22px;
+
+            margin-bottom: 40px;
+
             display: flex;
-            justify-content: space-between;
+
+            gap: 14px;
+
             align-items: center;
-            background: white;
-            padding: 20px 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-            gap: 15px;
         }
 
-        .header-bar h1 {
-            font-size: 2rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin: 0;
+        .live-dot {
+            width: 10px;
+            height: 10px;
+
+            border-radius: 50%;
+
+            background: #52ffa8;
+
+            box-shadow:
+                0 0 15px #52ffa8;
         }
 
-        .header-bar .btn-group {
-            display: flex;
-            gap: 10px;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%) !important;
-            border: none !important;
-            padding: 10px 20px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3) !important;
-        }
-
-        .btn-secondary {
-            background: var(--text-light) !important;
-            border: none !important;
-            padding: 10px 20px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .btn-secondary:hover {
-            background: var(--text-dark) !important;
-            transform: translateY(-2px);
-        }
-
-        .btn-danger {
-            background: var(--danger) !important;
-            border: none !important;
-            padding: 8px 15px;
+        .live strong {
             font-size: 0.9rem;
         }
 
-        .btn-danger:hover {
-            background: #c23030 !important;
-        }
+        .live span {
+            color: var(--muted);
 
-        .btn-warning {
-            background: var(--warning) !important;
-            border: none !important;
-            padding: 8px 15px;
             font-size: 0.9rem;
-            color: #333;
         }
 
-        .btn-warning:hover {
-            background: #f9ca24 !important;
-        }
 
-        /* ====== FORM SECTION ====== */
-        .form-card {
-            background: white;
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            margin-bottom: 30px;
-        }
+        /* =========================
+           PANEL ADMIN
+        ========================== */
 
-        .form-card h3 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 25px;
-            color: var(--text-dark);
-            border-bottom: 2px solid var(--primary);
-            padding-bottom: 15px;
-        }
+        .admin-banner {
+            margin-top: 30px;
 
-        .form-group label {
-            font-weight: 600;
-            color: var(--text-dark);
-            margin-bottom: 8px;
-        }
+            background: #0e1422;
 
-        .form-control {
-            border: 1px solid #ddd;
-            padding: 12px 15px;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
+            border: 1px solid var(--line);
 
-        .form-control:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-            outline: none;
-        }
+            border-radius: 18px;
 
-        textarea.form-control {
-            resize: vertical;
-            min-height: 120px;
-        }
+            padding: 22px;
 
-        .input-group-text {
-            background: var(--light);
-            border: 1px solid #ddd;
-        }
-
-        /* ====== TABLE SECTION ====== */
-        .table-card {
-            background: white;
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-
-        .table-card h3 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 25px;
-            color: var(--text-dark);
-            border-bottom: 2px solid var(--primary);
-            padding-bottom: 15px;
-        }
-
-        table {
-            margin-bottom: 0;
-        }
-
-        table thead {
-            background: var(--light);
-            border-bottom: 2px solid var(--primary);
-        }
-
-        table thead th {
-            font-weight: 700;
-            color: var(--text-dark);
-            padding: 15px;
-        }
-
-        table tbody td {
-            padding: 15px;
-            vertical-align: middle;
-            border-bottom: 1px solid #eee;
-        }
-
-        table tbody tr:hover {
-            background: rgba(102, 126, 234, 0.05);
-        }
-
-        .category-badge {
-            display: inline-block;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: white;
-        }
-
-        .category-dev { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-        .category-design { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
-        .category-backend { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
-        .category-security { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
-        .category-innovation { background: linear-gradient(135deg, #30cfd0 0%, #330867 100%); }
-        .category-mobile { background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); color: #333; }
-
-        .action-buttons {
             display: flex;
-            gap: 8px;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 20px;
         }
 
-        /* ====== EMPTY STATE ====== */
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: var(--text-light);
+        .admin-banner p {
+            margin: 4px 0 0;
+
+            color: var(--muted);
         }
 
-        .empty-state i {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            opacity: 0.5;
+
+        /* =========================
+           FOOTER
+        ========================== */
+
+        footer {
+            border-top: 1px solid var(--line);
+
+            padding: 45px 0;
+
+            color: #8792aa;
         }
 
-        .empty-state p {
-            font-size: 1.1rem;
-            margin: 0;
-        }
-
-        /* ====== ALERTS ====== */
-        .alert {
-            border-radius: 8px;
-            border: none;
-            padding: 15px 20px;
-            margin-bottom: 20px;
-            animation: slideInDown 0.3s ease;
-        }
-
-        @keyframes slideInDown {
-            from {
-                transform: translateY(-20px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .alert-success {
-            background: rgba(0, 184, 148, 0.1);
-            color: var(--success);
-            border-left: 4px solid var(--success);
-        }
-
-        .alert-danger {
-            background: rgba(214, 48, 49, 0.1);
-            color: var(--danger);
-            border-left: 4px solid var(--danger);
-        }
-
-        .alert-info {
-            background: rgba(102, 126, 234, 0.1);
-            color: var(--primary);
-            border-left: 4px solid var(--primary);
-        }
-
-        /* ====== MODAL ====== */
-        .modal-content {
-            border: none;
-            border-radius: 10px;
-        }
-
-        .modal-header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        footer strong {
             color: white;
-            border: none;
         }
 
-        .modal-header .close {
-            color: white;
-            opacity: 0.8;
+        footer a {
+            color: #9feaff;
+
+            margin-left: 16px;
         }
 
-        /* ====== RESPONSIVE ====== */
+
+        /* =========================
+           RESPONSIVE
+        ========================== */
+
         @media (max-width: 768px) {
-            .sidebar {
-                transform: translateX(-280px);
-                transition: transform 0.3s ease;
-                z-index: 1000;
+
+            .hero {
+                min-height: 72vh;
             }
 
-            .sidebar.active {
-                transform: translateX(0);
+            .hero h1 {
+                letter-spacing: -2px;
             }
 
-            .main-content {
-                margin-left: 0;
+            .section {
+                padding: 65px 0;
             }
 
-            .toggle-sidebar {
+            .section-head {
                 display: block;
             }
 
-            .header-bar {
-                flex-direction: column;
+            .admin-banner {
+                display: block;
             }
 
-            .header-bar h1 {
-                font-size: 1.5rem;
-            }
-
-            .header-bar .btn-group {
-                width: 100%;
-            }
-
-            table {
-                font-size: 0.9rem;
-            }
-
-            .action-buttons {
-                flex-direction: column;
+            .admin-banner .btn-tech {
+                margin-top: 15px;
             }
         }
 
-        .toggle-sidebar {
-            display: none;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            border: none;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .stat-card {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            text-align: center;
-        }
-
-        .stat-card .number {
-            font-size: 2.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .stat-card .label {
-            color: var(--text-light);
-            font-size: 0.9rem;
-            margin-top: 10px;
-        }
     </style>
 </head>
+
+
 <body>
 
-    <!-- SIDEBAR -->
-    <div class="sidebar">
-        <div class="sidebar-brand">
-            <i class="fas fa-rocket"></i> Admin Panel
+    <!-- =====================================================
+         NAVBAR
+    ====================================================== -->
+
+    <nav class="navbar navbar-expand-lg navbar-dark">
+
+        <div class="container">
+
+            <!-- LOGO -->
+            <a class="navbar-brand" href="#">
+                <i class="fa-solid fa-bolt"></i>
+                TechBlog
+            </a>
+
+
+            <!-- BOTÓN MOBILE -->
+            <button
+                class="navbar-toggler"
+                data-toggle="collapse"
+                data-target="#nav"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+
+            <!-- MENÚ -->
+            <div
+                id="nav"
+                class="collapse navbar-collapse"
+            >
+
+                <ul class="navbar-nav ml-auto">
+
+                    <li class="nav-item">
+                        <a
+                            class="nav-link"
+                            href="#inicio"
+                        >
+                            Inicio
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a
+                            class="nav-link"
+                            href="#noticias"
+                        >
+                            Noticias
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a
+                            class="nav-link"
+                            href="#admin"
+                        >
+                            Administrar
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
         </div>
-        <ul class="sidebar-menu">
-            <li><a href="#dashboard" class="nav-link active" onclick="showSection('dashboard')"><i class="fas fa-chart-line"></i> Dashboard</a></li>
-            <li><a href="#articulos" class="nav-link" onclick="showSection('articulos')"><i class="fas fa-newspaper"></i> Artículos</a></li>
-            <li><a href="#crear" class="nav-link" onclick="showSection('crear')"><i class="fas fa-plus-circle"></i> Crear Artículo</a></li>
-            <li><a href="#" onclick="volverAlBlog()" style="margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 30px;"><i class="fas fa-arrow-left"></i> Volver al Blog</a></li>
-        </ul>
-    </div>
 
-    <!-- MAIN CONTENT -->
-    <div class="main-content">
-        <button class="toggle-sidebar" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+    </nav>
 
-        <!-- ALERTS -->
-        <div id="alerts-container"></div>
 
-        <!-- DASHBOARD SECTION -->
-        <section id="dashboard" class="section">
-            <div class="header-bar">
-                <h1><i class="fas fa-chart-line"></i> Dashboard</h1>
-            </div>
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
 
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="number" id="total-articles">0</div>
-                    <div class="label">Artículos Totales</div>
+    <section
+        class="hero"
+        id="inicio"
+    >
+
+        <div class="container">
+
+            <div class="hero-content">
+
+                <!-- ETIQUETA -->
+                <span class="eyebrow">
+                    <i class="fa-solid fa-signal"></i>
+                    ACTUALIZADO · 19 SEP 2026
+                </span>
+
+
+                <!-- TÍTULO -->
+                <h1>
+                    El mundo
+                    <span class="gradient">
+                        tech
+                    </span>,
+                    en un solo lugar.
+                </h1>
+
+
+                <!-- DESCRIPCIÓN -->
+                <p>
+                    Noticias y tendencias sobre inteligencia artificial,
+                    hardware, ciberseguridad e infraestructura.
+                    Una portada moderna para seguir lo que está pasando
+                    en tecnología.
+                </p>
+
+
+                <!-- BOTONES -->
+                <div class="hero-actions">
+
+                    <a
+                        href="#noticias"
+                        class="btn-tech"
+                    >
+                        Ver noticias
+                        <i class="fa-solid fa-arrow-down"></i>
+                    </a>
+
+                    <a
+                        href="admin.html"
+                        class="btn-ghost"
+                    >
+                        Abrir panel admin
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+
                 </div>
-                <div class="stat-card">
-                    <div class="number" id="total-categories">0</div>
-                    <div class="label">Categorías</div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         NOTICIAS
+    ====================================================== -->
+
+    <section
+        class="section"
+        id="noticias"
+    >
+
+        <div class="container">
+
+            <!-- NEWS DESK -->
+            <div class="live">
+
+                <span class="live-dot"></span>
+
+                <strong>
+                    NEWS DESK
+                </strong>
+
+                <span>
+                    Selección de noticias tecnológicas recientes.
+                    Las tarjetas enlazan a la fuente original.
+                </span>
+
+            </div>
+
+
+            <!-- TÍTULO DE SECCIÓN -->
+            <div class="section-head">
+
+                <div>
+
+                    <h2>
+                        Últimas noticias
+                    </h2>
+
+                    <p>
+                        Información tecnológica seleccionada y actualizada.
+                    </p>
+
                 </div>
-                <div class="stat-card">
-                    <div class="number" id="avg-length">0</div>
-                    <div class="label">Promedio de Palabras</div>
+
+            </div>
+
+
+            <!-- CONTENEDOR DE NOTICIAS -->
+            <div
+                id="news-grid"
+                class="row"
+            ></div>
+
+
+            <!-- PANEL ADMIN -->
+            <div
+                class="admin-banner"
+                id="admin"
+            >
+
+                <div>
+
+                    <strong>
+                        ¿Quieres publicar una noticia?
+                    </strong>
+
+                    <p>
+                        Usa el panel de administración para crear,
+                        editar o eliminar artículos.
+                        Los datos se comparten entre ambas páginas
+                        mediante localStorage.
+                    </p>
+
                 </div>
+
+
+                <a
+                    class="btn-tech"
+                    href="admin.html"
+                >
+                    Ir al panel
+                    <i class="fa-solid fa-gear"></i>
+                </a>
+
             </div>
 
-            <div class="table-card">
-                <h3><i class="fas fa-bar-chart"></i> Artículos Recientes</h3>
-                <div id="dashboard-table"></div>
-            </div>
-        </section>
+        </div>
 
-        <!-- ARTÍCULOS SECTION -->
-        <section id="articulos" class="section" style="display: none;">
-            <div class="header-bar">
-                <h1><i class="fas fa-newspaper"></i> Todos los Artículos</h1>
-                <div class="btn-group">
-                    <button class="btn btn-primary" onclick="showSection('crear')"><i class="fas fa-plus"></i> Crear Nuevo</button>
-                </div>
-            </div>
+    </section>
 
-            <div class="table-card">
-                <div id="articles-list"></div>
-            </div>
-        </section>
 
-        <!-- CREAR ARTÍCULO SECTION -->
-        <section id="crear" class="section" style="display: none;">
-            <div class="header-bar">
-                <h1><i class="fas fa-plus-circle"></i> Crear Artículo</h1>
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer>
+
+        <div
+            class="container d-flex justify-content-between flex-wrap"
+        >
+
+            <div>
+                <strong>
+                    TechBlog
+                </strong>
+
+                · Noticias de tecnología
             </div>
 
-            <div class="form-card">
-                <h3>Nuevo Artículo</h3>
-                <form id="article-form" onsubmit="saveArticle(event)">
-                    <div class="form-group">
-                        <label for="title">Título del Artículo *</label>
-                        <input type="text" class="form-control" id="title" required placeholder="Ej: React 19: Las Nuevas Features">
-                    </div>
+            <div>
+                Proyecto web ·
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="category">Categoría *</label>
-                                <select class="form-control" id="category" required>
-                                    <option value="">Selecciona una categoría</option>
-                                    <option value="Desarrollo">Desarrollo</option>
-                                    <option value="Diseño">Diseño</option>
-                                    <option value="Backend">Backend</option>
-                                    <option value="Seguridad">Seguridad</option>
-                                    <option value="Innovación">Innovación</option>
-                                    <option value="Mobile">Mobile</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="date">Fecha *</label>
-                                <input type="date" class="form-control" id="date" required>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="readTime">Tiempo de Lectura (minutos) *</label>
-                                <input type="number" class="form-control" id="readTime" required min="1" placeholder="Ej: 8">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="author">Autor</label>
-                                <input type="text" class="form-control" id="author" placeholder="Tu nombre">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="description">Descripción *</label>
-                        <textarea class="form-control" id="description" required placeholder="Breve descripción del artículo..."></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="content">Contenido Completo</label>
-                        <textarea class="form-control" id="content" placeholder="Contenido del artículo..."></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="link">Link del Artículo</label>
-                        <input type="url" class="form-control" id="link" placeholder="https://...">
-                    </div>
-
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-lg"><i class="fas fa-save"></i> Guardar Artículo</button>
-                        <button type="reset" class="btn btn-secondary btn-lg ms-2"><i class="fas fa-redo"></i> Limpiar</button>
-                    </div>
-                </form>
+                <a href="admin.html">
+                    Admin
+                </a>
             </div>
-        </section>
-    </div>
 
-    <!-- SCRIPTS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        </div>
+
+    </footer>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
 
     <script>
-        // Datos de ejemplo
-        const defaultArticles = [
+
+        /* =====================================================
+           NOTICIAS PREDETERMINADAS
+        ====================================================== */
+
+        const fallbackArticles = [
+
             {
-                id: 1,
-                title: "React 19: Las Nuevas Features que Debes Conocer",
-                category: "Desarrollo",
-                date: "15 de Septiembre",
-                readTime: 8,
-                author: "Juan Pérez",
-                description: "Descubre las características más emocionantes de React 19 que cambiarán tu forma de desarrollar aplicaciones web modernas.",
-                content: "Contenido completo del artículo sobre React 19...",
-                link: "#"
+                id: 101,
+
+                title:
+                    "Apple explora volver al mercado de servidores para IA",
+
+                category: "IA",
+
+                date:
+                    "17 de septiembre de 2026",
+
+                readTime: 5,
+
+                author: "TechBlog",
+
+                description:
+                    "Reportes indican que Apple estudia servidores orientados a cargas de inteligencia artificial, con una posible arquitectura basada en sus chips M8 Ultra y tecnologías de NVIDIA.",
+
+                content:
+                    "Apple estaría explorando una nueva entrada al mercado de servidores, impulsada por la creciente demanda de infraestructura para inteligencia artificial. Los reportes señalan una posible plataforma basada en chips M8 Ultra y conexión mediante NVLink Fusion de NVIDIA. El proyecto todavía está sujeto a cambios y se proyecta a largo plazo.",
+
+                link:
+                    "https://www.theverge.com/tech/996321/apple-servers-ai",
+
+                icon:
+                    "fa-server"
             },
+
+
             {
-                id: 2,
-                title: "Tendencias en Diseño UI/UX para 2024",
-                category: "Diseño",
-                date: "14 de Septiembre",
-                readTime: 10,
-                author: "María González",
-                description: "Explora las tendencias más importantes en diseño de interfaces que están transformando la experiencia del usuario.",
-                content: "Contenido completo sobre tendencias de diseño...",
-                link: "#"
+                id: 102,
+
+                title:
+                    "Google, NVIDIA y Anthropic buscan facilitar la expansión de centros de datos de IA",
+
+                category:
+                    "Infraestructura",
+
+                date:
+                    "17 de septiembre de 2026",
+
+                readTime:
+                    6,
+
+                author:
+                    "TechBlog",
+
+                description:
+                    "Una alianza busca utilizar software de gestión energética para ayudar a conectar más centros de datos de IA a las redes eléctricas.",
+
+                content:
+                    "Google, NVIDIA y Anthropic participan en una alianza con Emerald AI para gestionar de forma más flexible el consumo eléctrico de centros de datos. La propuesta busca desplazar tareas no críticas y responder a momentos de alta demanda de la red, con el objetivo de aprovechar mejor la infraestructura existente.",
+
+                link:
+                    "https://techcrunch.com/2026/09/17/google-nvidia-and-anthropic-want-emerald-ai-to-find-space-on-the-grid-for-more-data-centers/",
+
+                icon:
+                    "fa-bolt"
+            },
+
+
+            {
+                id: 103,
+
+                title:
+                    "La industria tecnológica debate el ritmo de desarrollo de la IA",
+
+                category:
+                    "IA",
+
+                date:
+                    "19 de septiembre de 2026",
+
+                readTime:
+                    7,
+
+                author:
+                    "TechBlog",
+
+                description:
+                    "Durante septiembre aumentaron las discusiones entre líderes de empresas de IA sobre seguridad, evaluación de modelos y velocidad de desarrollo.",
+
+                content:
+                    "Associated Press reporta que varios líderes de la industria han planteado distintas posiciones sobre cómo equilibrar innovación y seguridad en el desarrollo de inteligencia artificial. El debate incluye evaluaciones externas, coordinación entre empresas y estándares de seguridad, mientras otros ejecutivos consideran que la gestión de riesgos puede realizarse desde cada compañía.",
+
+                link:
+                    "https://apnews.com/article/1d9615931af28a83cb97489178e90f2d",
+
+                icon:
+                    "fa-brain"
+            },
+
+
+            {
+                id: 104,
+
+                title:
+                    "La ciberseguridad gana atención ante el aumento de ataques con IA",
+
+                category:
+                    "Seguridad",
+
+                date:
+                    "19 de septiembre de 2026",
+
+                readTime:
+                    6,
+
+                author:
+                    "TechBlog",
+
+                description:
+                    "El uso de herramientas de IA por parte de atacantes está aumentando la atención sobre la automatización de amenazas y la defensa digital.",
+
+                content:
+                    "Un reporte de Cinco Días señala que el debate sobre ataques automatizados mediante inteligencia artificial ha impulsado el interés por soluciones de ciberseguridad. Empresas del sector han reforzado previsiones de crecimiento mientras continúa la preocupación por amenazas que pueden ejecutarse con mayor autonomía.",
+
+                link:
+                    "https://cincodias.elpais.com/companias/2026-09-19/la-avalancha-de-ataques-y-el-freno-de-la-ia-disparan-a-las-empresas-de-ciberseguridad-en-Bolsa.html",
+
+                icon:
+                    "fa-shield-halved"
+            },
+
+
+            {
+                id: 105,
+
+                title:
+                    "Salesforce y NVIDIA presentan un nuevo modelo de razonamiento",
+
+                category:
+                    "Modelos IA",
+
+                date:
+                    "15 de septiembre de 2026",
+
+                readTime:
+                    5,
+
+                author:
+                    "TechBlog",
+
+                description:
+                    "Salesforce presentó Koa, un nuevo modelo de razonamiento desarrollado con NVIDIA, durante Dreamforce.",
+
+                content:
+                    "TechCrunch informó sobre Koa, un nuevo modelo de IA anunciado por Salesforce durante Dreamforce. La noticia se suma a la competencia entre laboratorios y compañías tecnológicas por desarrollar modelos capaces de resolver tareas de razonamiento de forma más avanzada.",
+
+                link:
+                    "https://techcrunch.com/2026/09/15/salesforce-and-nvidias-new-reasoning-model-is-everything-the-ai-labs-should-fear/",
+
+                icon:
+                    "fa-microchip"
+            },
+
+
+            {
+                id: 106,
+
+                title:
+                    "El costo de la memoria RAM sigue presionando a la industria tecnológica",
+
+                category:
+                    "Hardware",
+
+                date:
+                    "11 de septiembre de 2026",
+
+                readTime:
+                    5,
+
+                author:
+                    "TechBlog",
+
+                description:
+                    "El aumento de los costos de memoria está influyendo en precios y cadenas de suministro de distintos productos tecnológicos.",
+
+                content:
+                    "The Verge reportó que el incremento de los costos de memoria RAM está afectando a diferentes áreas de la industria tecnológica. El impacto puede reflejarse en fabricantes de teléfonos y otros dispositivos mientras la cadena de suministro se ajusta.",
+
+                link:
+                    "https://www.theverge.com/tech/988225/ram-shortage-supply-chain-micron-apple-iphone",
+
+                icon:
+                    "fa-memory"
             }
+
         ];
 
-        // Inicializar datos
-        function initializeData() {
-            if (!localStorage.getItem('articles')) {
-                localStorage.setItem('articles', JSON.stringify(defaultArticles));
-            }
-        }
 
-        // Obtener artículos
+        /* =====================================================
+           OBTENER ARTÍCULOS
+        ====================================================== */
+
         function getArticles() {
-            return JSON.parse(localStorage.getItem('articles')) || defaultArticles;
+
+            try {
+
+                const saved =
+                    JSON.parse(
+                        localStorage.getItem("articles")
+                    );
+
+                if (
+                    Array.isArray(saved) &&
+                    saved.length
+                ) {
+                    return saved;
+                }
+
+                return fallbackArticles;
+
+            } catch (error) {
+
+                return fallbackArticles;
+
+            }
+
         }
 
-        // Guardar artículos
-        function saveArticles(articles) {
-            localStorage.setItem('articles', JSON.stringify(articles));
-        }
 
-        // Guardar artículo
-        function saveArticle(event) {
-            event.preventDefault();
+        /* =====================================================
+           ICONOS SEGÚN CATEGORÍA
+        ====================================================== */
 
-            const articles = getArticles();
-            const newArticle = {
-                id: Date.now(),
-                title: document.getElementById('title').value,
-                category: document.getElementById('category').value,
-                date: document.getElementById('date').value,
-                readTime: parseInt(document.getElementById('readTime').value),
-                author: document.getElementById('author').value || 'Sin autor',
-                description: document.getElementById('description').value,
-                content: document.getElementById('content').value,
-                link: document.getElementById('link').value || '#'
+        function iconFor(category) {
+
+            const icons = {
+
+                "IA":
+                    "fa-brain",
+
+                "Infraestructura":
+                    "fa-bolt",
+
+                "Seguridad":
+                    "fa-shield-halved",
+
+                "Hardware":
+                    "fa-microchip",
+
+                "Modelos IA":
+                    "fa-robot",
+
+                "Desarrollo":
+                    "fa-code",
+
+                "Diseño":
+                    "fa-palette",
+
+                "Backend":
+                    "fa-database",
+
+                "Mobile":
+                    "fa-mobile-screen"
+
             };
 
-            articles.push(newArticle);
-            saveArticles(articles);
+            return icons[category] || "fa-newspaper";
 
-            showAlert('¡Artículo creado exitosamente!', 'success');
-            document.getElementById('article-form').reset();
-            setTimeout(() => showSection('articulos'), 1500);
         }
 
-        // Eliminar artículo
-        function deleteArticle(id) {
-            if (confirm('¿Estás seguro de que deseas eliminar este artículo?')) {
-                let articles = getArticles();
-                articles = articles.filter(a => a.id !== id);
-                saveArticles(articles);
-                showAlert('Artículo eliminado', 'info');
-                renderArticles();
-            }
+
+        /* =====================================================
+           SEGURIDAD HTML
+        ====================================================== */
+
+        function escapeHTML(value) {
+
+            return String(value ?? "").replace(
+                /[&<>"']/g,
+
+                function (match) {
+
+                    return {
+
+                        "&": "&amp;",
+                        "<": "&lt;",
+                        ">": "&gt;",
+                        '"': "&quot;",
+                        "'": "&#039;"
+
+                    }[match];
+
+                }
+            );
+
         }
 
-        // Editar artículo
-        function editArticle(id) {
-            const articles = getArticles();
-            const article = articles.find(a => a.id === id);
-            
-            if (article) {
-                document.getElementById('title').value = article.title;
-                document.getElementById('category').value = article.category;
-                document.getElementById('date').value = article.date;
-                document.getElementById('readTime').value = article.readTime;
-                document.getElementById('author').value = article.author;
-                document.getElementById('description').value = article.description;
-                document.getElementById('content').value = article.content;
-                document.getElementById('link').value = article.link;
 
-                // Cambiar a modo edición
-                const form = document.getElementById('article-form');
-                form.onsubmit = (e) => updateArticle(e, id);
-                document.querySelector('.form-card h3').textContent = 'Editar Artículo';
+        /* =====================================================
+           MOSTRAR NOTICIAS
+        ====================================================== */
 
-                showSection('crear');
-            }
-        }
+        function renderNews() {
 
-        // Actualizar artículo
-        function updateArticle(event, id) {
-            event.preventDefault();
+            const grid =
+                document.getElementById("news-grid");
 
-            let articles = getArticles();
-            const index = articles.findIndex(a => a.id === id);
+            const articles =
+                getArticles();
 
-            if (index !== -1) {
-                articles[index] = {
-                    id: id,
-                    title: document.getElementById('title').value,
-                    category: document.getElementById('category').value,
-                    date: document.getElementById('date').value,
-                    readTime: parseInt(document.getElementById('readTime').value),
-                    author: document.getElementById('author').value,
-                    description: document.getElementById('description').value,
-                    content: document.getElementById('content').value,
-                    link: document.getElementById('link').value
-                };
 
-                saveArticles(articles);
-                showAlert('Artículo actualizado exitosamente!', 'success');
-                document.getElementById('article-form').reset();
-                document.querySelector('.form-card h3').textContent = 'Nuevo Artículo';
-                document.getElementById('article-form').onsubmit = (e) => saveArticle(e);
-                setTimeout(() => showSection('articulos'), 1500);
-            }
-        }
+            grid.innerHTML = articles
+                .map(function (article) {
 
-        // Renderizar artículos
-        function renderArticles() {
-            const articles = getArticles();
-            let html = '';
+                    return `
 
-            if (articles.length === 0) {
-                html = `
-                    <div class="empty-state">
-                        <i class="fas fa-inbox"></i>
-                        <p>No hay artículos aún. ¡Crea uno para empezar!</p>
-                    </div>
-                `;
-            } else {
-                html = `
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Título</th>
-                                <th>Categoría</th>
-                                <th>Fecha</th>
-                                <th>Tiempo Lectura</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                `;
+                        <div class="col-lg-4 col-md-6 mb-4">
 
-                articles.forEach(article => {
-                    html += `
-                        <tr>
-                            <td><strong>${article.title}</strong></td>
-                            <td><span class="category-badge category-${article.category.toLowerCase()}">${article.category}</span></td>
-                            <td>${article.date}</td>
-                            <td>${article.readTime} min</td>
-                            <td>
-                                <div class="action-buttons">
-                                    <button class="btn btn-warning btn-sm" onclick="editArticle(${article.id})"><i class="fas fa-edit"></i> Editar</button>
-                                    <button class="btn btn-danger btn-sm" onclick="deleteArticle(${article.id})"><i class="fas fa-trash"></i> Eliminar</button>
+                            <article class="news-card">
+
+                                <!-- ICONO -->
+
+                                <div class="news-cover">
+
+                                    <i class="fa-solid ${
+                                        escapeHTML(
+                                            article.icon ||
+                                            iconFor(article.category)
+                                        )
+                                    }"></i>
+
                                 </div>
-                            </td>
-                        </tr>
+
+
+                                <!-- CONTENIDO -->
+
+                                <div class="news-body">
+
+                                    <span class="tag">
+                                        ${escapeHTML(article.category)}
+                                    </span>
+
+
+                                    <h3>
+                                        ${escapeHTML(article.title)}
+                                    </h3>
+
+
+                                    <div class="meta">
+
+                                        <span>
+                                            <i class="fa-regular fa-calendar"></i>
+
+                                            ${escapeHTML(article.date)}
+                                        </span>
+
+                                        <span>
+                                            •
+                                        </span>
+
+                                        <span>
+                                            ${escapeHTML(article.readTime)}
+                                            min
+                                        </span>
+
+                                    </div>
+
+
+                                    <p>
+                                        ${escapeHTML(article.description)}
+                                    </p>
+
+
+                                    <a
+                                        class="read"
+                                        href="${escapeHTML(
+                                            article.link || "#"
+                                        )}"
+                                        target="_blank"
+                                        rel="noopener"
+                                    >
+                                        Leer fuente
+
+                                        <i class="fa-solid fa-arrow-right"></i>
+
+                                    </a>
+
+                                </div>
+
+                            </article>
+
+                        </div>
+
                     `;
-                });
 
-                html += `
-                        </tbody>
-                    </table>
-                `;
-            }
+                })
+                .join("");
 
-            document.getElementById('articles-list').innerHTML = html;
-            document.getElementById('dashboard-table').innerHTML = html;
         }
 
-        // Mostrar alertas
-        function showAlert(message, type) {
-            const alertDiv = document.createElement('div');
-            alertDiv.className = `alert alert-${type}`;
-            alertDiv.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
-            document.getElementById('alerts-container').appendChild(alertDiv);
 
-            setTimeout(() => alertDiv.remove(), 3000);
-        }
+        /* =====================================================
+           EVENTOS
+        ====================================================== */
 
-        // Cambiar sección
-        function showSection(sectionId) {
-            document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
-            document.getElementById(sectionId).style.display = 'block';
+        document.addEventListener(
+            "DOMContentLoaded",
+            renderNews
+        );
 
-            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
-            document.querySelector(`[onclick="showSection('${sectionId}')"]`).classList.add('active');
+        window.addEventListener(
+            "storage",
+            renderNews
+        );
 
-            if (sectionId === 'articulos' || sectionId === 'dashboard') {
-                renderArticles();
-                updateStats();
-            }
-
-            if (sectionId === 'crear') {
-                document.getElementById('article-form').reset();
-                document.querySelector('.form-card h3').textContent = 'Nuevo Artículo';
-                document.getElementById('article-form').onsubmit = (e) => saveArticle(e);
-            }
-        }
-
-        // Actualizar estadísticas
-        function updateStats() {
-            const articles = getArticles();
-            const categories = new Set(articles.map(a => a.category)).size;
-            const avgWords = articles.length > 0 ? 
-                Math.round(articles.reduce((sum, a) => sum + (a.content.split(' ').length || 0), 0) / articles.length) : 
-                0;
-
-            document.getElementById('total-articles').textContent = articles.length;
-            document.getElementById('total-categories').textContent = categories;
-            document.getElementById('avg-length').textContent = avgWords;
-        }
-
-        // Toggle sidebar móvil
-        function toggleSidebar() {
-            document.querySelector('.sidebar').classList.toggle('active');
-        }
-
-        // Volver al blog
-        function volverAlBlog() {
-            window.location.href = '../';
-        }
-
-        // Establecer fecha actual
-        function setDefaultDate() {
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('date').value = today;
-        }
-
-        // Inicializar
-        document.addEventListener('DOMContentLoaded', () => {
-            initializeData();
-            setDefaultDate();
-            renderArticles();
-            updateStats();
-        });
     </script>
 
 </body>
+
 </html>
